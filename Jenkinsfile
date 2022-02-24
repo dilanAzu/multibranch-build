@@ -18,7 +18,7 @@ pipeline {
     
   stage('code checkout') {
       steps {
-        
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'git-check', url: 'https://github.com/dilanAzu/multibranch-build_ci']]])
       }
   }
     
@@ -27,10 +27,9 @@ pipeline {
         
         echo "Running Unit Tests"
         sh 'mvn test'
-        sh mvn -v'
         
       }
-    }
+   }
     
     stage('code Analysis') {
       steps {
@@ -52,4 +51,7 @@ pipeline {
             
           }
        }
+          
+   }
+ }
         
